@@ -13,8 +13,10 @@ const MILESTONES = [18, 21, 30, 40, 50, 60, 65, 70, 80, 90, 100];
 
 export const Grid: React.FC<GridProps> = ({ birthDateStr, lifeExpectancy }) => {
   const { t } = useLanguage();
-  const { gridCells, livedWeeks } = useMemo(() => {
-    if (!birthDateStr) return { gridCells: [], livedWeeks: 0 };
+  
+  // FIXED: Removed 'livedWeeks' from destructuring as it was unused and causing build failure
+  const { gridCells } = useMemo(() => {
+    if (!birthDateStr) return { gridCells: [] };
     
     const birthDate = new Date(birthDateStr);
     const lived = calculateWeeksLived(birthDate);
@@ -30,7 +32,7 @@ export const Grid: React.FC<GridProps> = ({ birthDateStr, lifeExpectancy }) => {
     // Set current week
     if (lived < totalWeeks && lived >= 0) cells[lived] = 2;
 
-    return { gridCells: cells, livedWeeks: lived };
+    return { gridCells: cells };
   }, [birthDateStr, lifeExpectancy]);
 
   if (!birthDateStr) {

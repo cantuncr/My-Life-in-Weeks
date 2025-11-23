@@ -1,5 +1,4 @@
-import { WEEKS_PER_YEAR } from './constants';
-
+// FIXED: Removed unused 'WEEKS_PER_YEAR' import
 export const calculateWeeksLived = (birthDate: Date): number => {
   const today = new Date();
   const diffTime = Math.abs(today.getTime() - birthDate.getTime());
